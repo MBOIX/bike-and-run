@@ -1,4 +1,4 @@
-id,categorie,marque,nom,description,genre,tailles,couleur,annee_modele,etat,prix_ttc_eur,prix_solde_eur,taux_remise_pct,disponibilite,nouveaute,mise_en_avant,url_fabricant,image
+id,categorie,marque,nom,description,genre,tailles,couleur,annee_modele,etat,prix_ttc_eur,prix_solde_eur,taux_remise_pct,disponibilite,nouveaute,mise_en_avant,url_fabricant,images
 BR-001,VTT,Scott,Spark 970,"VTT tout-suspendu 29 pouces, cadre aluminium, 130 mm de débattement, SRAM NX Eagle 12 vitesses. Fin de série.",Mixte,S à XL,Vert profond,2024,Neuf,3199.00,2559.00,20,En stock,non,oui,,
 BR-002,VTT,Scott,Spark RC Comp,"Tout-suspendu cross-country 29 pouces, cadre carbone, 120 mm, prêt pour la compétition.",Mixte,S à XL,Blanc brillant,2025,Neuf,4599.00,,,Sur commande,oui,non,,
 BR-003,VTT,Scott,Scale 970,"VTT semi-rigide 29 pouces, cadre aluminium, fourche 100 mm, Shimano Deore 12 vitesses.",Mixte,S à XL,Gris anthracite,2025,Neuf,1199.00,,,En stock,non,non,,

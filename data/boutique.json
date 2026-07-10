@@ -13,9 +13,9 @@
     "pays": "France"
   },
   "geolocalisation": {
-    "latitude": null,
-    "longitude": null,
-    "note": "Coordonnées GPS exactes à relever sur place — requises par le plan SEO (JSON-LD geo et cohérence avec l'épingle Google Maps)."
+    "latitude": 48.8393676,
+    "longitude": -0.8881818,
+    "note": "Relevé sur le nœud OpenStreetMap « Bike & Run, 4 Rue du Cotin, Vire » — à confirmer sur place et à aligner avec l'épingle Google Maps (plan SEO)."
   },
   "horaires": [
     { "jours": "Du mardi au samedi", "creneaux": ["10 h – 13 h", "14 h – 19 h"] },

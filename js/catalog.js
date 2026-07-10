@@ -86,7 +86,7 @@ export function toProduct(row) {
     nouveaute: row.nouveaute === 'oui',
     miseEnAvant: row.mise_en_avant === 'oui',
     urlFabricant: row.url_fabricant === '' ? null : row.url_fabricant,
-    image: row.image === '' ? null : row.image,
+    images: row.images ? row.images.split(';').filter(Boolean) : [],
   };
 }
 

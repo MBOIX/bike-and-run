@@ -69,7 +69,7 @@ function ligneCsv(surcharges = {}) {
     nouveaute: 'non',
     mise_en_avant: 'non',
     url_fabricant: '',
-    image: '',
+    images: '',
     ...surcharges,
   };
 }
@@ -85,7 +85,18 @@ test('toProduct type les nombres et les booléens d’un produit standard', () =
   assert.equal(product.occasion, false);
   assert.equal(product.miseEnAvant, false);
   assert.equal(product.urlFabricant, null);
-  assert.equal(product.image, null);
+  assert.deepEqual(product.images, []);
+});
+
+test('toProduct découpe la liste d’images séparées par des points-virgules', () => {
+  const product = toProduct(ligneCsv({
+    images: 'assets/images/products/BR-003-1.jpg;assets/images/products/BR-003-2.jpg',
+  }));
+
+  assert.deepEqual(product.images, [
+    'assets/images/products/BR-003-1.jpg',
+    'assets/images/products/BR-003-2.jpg',
+  ]);
 });
 
 test('toProduct active le mode solde quand un prix soldé est renseigné', () => {
