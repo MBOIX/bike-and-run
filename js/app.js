@@ -80,7 +80,7 @@ function carteProduit(product) {
   return `
     <article class="product-card${product.enSolde ? ' product-card--solde' : ''}">
       <div class="product-card__visuel">
-        <img src="${escapeHtml(visuel)}" alt="${escapeHtml(`${product.marque} ${product.nom}`)}" loading="lazy" width="600" height="450">
+        <img src="${escapeHtml(visuel)}" alt="${escapeHtml(`${product.marque} ${product.nom}`)}" loading="lazy" decoding="async" width="600" height="450">
         <div class="product-card__flags">${drapeaux(product)}</div>
         <span class="product-card__cta" aria-hidden="true">Voir la fiche</span>
       </div>
