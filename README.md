@@ -50,7 +50,11 @@ Chaque push sur `main` publie le site sur GitHub Pages (réglage requis une fois
 
 ## Feuille de route
 
+Les prochaines étapes détaillées (SEO, performance, hébergement `bikeandrun.fr` + HTTPS, analytics, Airtable)
+sont consignées dans [`TODO.md`](TODO.md). En résumé :
+
 1. ✅ Socle du projet : charte, données mock, déploiement Pages.
-2. ⏳ Conception de la landing page (hero, catalogue filtrable, présentation boutique, contact).
+2. ✅ Landing page : hero, catalogue filtrable, fiche produit, carte, favicon.
 3. ⏳ Mise en œuvre du plan SEO (`docs/seo-plan.md`) — plan rédigé, implémentation à déclencher.
-4. ⏳ Synchronisation Airtable → `data/` via GitHub Actions planifiée.
+4. ⏳ Mise en production sur `bikeandrun.fr` (domaine réservé).
+5. ⏳ Synchronisation Airtable → `data/` via GitHub Actions planifiée.

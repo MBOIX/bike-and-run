@@ -8,10 +8,10 @@ Objectif : **la première position Google sur les requêtes locales** (« magasi
 
 - [ ] `<title>` unique et descriptif (< 60 caractères, enseigne + activité + ville).
 - [ ] `<meta name="description">` unique (< 160 caractères, incitant au clic).
-- [ ] `<link rel="canonical">` vers l'URL de production.
+- [ ] `<link rel="canonical">` vers l'URL de production (**`https://bikeandrun.fr/`**, domaine déjà réservé).
 - [ ] HTML sémantique validé : un seul `<h1>`, hiérarchie `h2`/`h3` sans trou, balises `header/main/section/footer/address`.
-- [ ] `robots.txt` autorisant l'indexation et pointant vers le sitemap.
-- [ ] `sitemap.xml` (une URL pour l'instant, `lastmod` maintenu à chaque évolution notable).
+- [ ] `robots.txt` autorisant l'indexation et pointant vers le sitemap (`https://bikeandrun.fr/sitemap.xml`).
+- [ ] `sitemap.xml` (une URL `https://bikeandrun.fr/` pour l'instant, `lastmod` maintenu à chaque évolution notable).
 - [ ] Page `404.html` personnalisée (GitHub Pages la sert automatiquement).
 - [ ] Favicon et icônes (`favicon.ico`, `apple-touch-icon`) dérivés du logo.
 
@@ -58,7 +58,7 @@ Sur une requête locale, Google classe d'abord le **pack local** (les trois fich
 - [ ] **Citations locales cohérentes** (NAP au caractère près) : PagesJaunes, mairie/office de tourisme de Vire Normandie, annuaires vélo/commerces de Normandie, Apple Business Connect, Bing Places.
 - [ ] Lier le site depuis les pages Facebook et Instagram de la boutique, et réciproquement (liens dans le footer).
 - [ ] **Backlinks locaux** : presse locale (Ouest-France, La Voix le Bocage), clubs cyclistes et de course à pied du bocage virois, sponsoring de courses locales avec lien vers le site.
-- [ ] À terme : **nom de domaine personnalisé** (ex. `bikeandrun-vire.fr`). Le sous-domaine `github.io` suffit pour les démos, mais un domaine propre est indispensable pour le référencement réel — prévoir les redirections 301 à la bascule et mettre à jour canonical/sitemap/robots.
+- [ ] Bascule sur le **nom de domaine personnalisé `bikeandrun.fr`** (déjà réservé). Le sous-domaine `github.io` ne sert qu'aux démos ; le domaine propre est indispensable pour le référencement réel. À la mise en production : ajouter le `CNAME`, configurer le DNS, prévoir les redirections 301 depuis l'ancienne URL et mettre à jour `canonical` / `sitemap.xml` / `robots.txt` vers `https://bikeandrun.fr/`.
 
 **Critères d'acceptation** : fiche Google validée et complète à 100 % ; NAP strictement identique partout ; premiers avis clients publiés ; le site apparaît dans le pack local sur « magasin de vélo Vire ».
 
@@ -77,4 +77,4 @@ Sur une requête locale, Google classe d'abord le **pack local** (les trois fich
 2. Une seule `<h1>` ; hiérarchie de titres stricte ; `alt` sur toute image.
 3. `title`, `meta description`, canonical, sitemap et JSON-LD maintenus à chaque évolution de la page.
 4. Jamais de contenu dupliqué entre le site et les fiches externes : le site fait foi (source : `data/boutique.json`).
-5. Chemins relatifs uniquement (le site vit sous `/bike-and-run/` tant qu'il n'y a pas de domaine propre).
+5. Chemins relatifs uniquement (le site vit sous `/bike-and-run/` sur GitHub Pages ; passera à la racine de `https://bikeandrun.fr/` à la bascule — les chemins relatifs fonctionnent dans les deux cas).
