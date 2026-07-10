@@ -40,7 +40,7 @@ Grâce à `js/catalog.js`, le passage mock → Airtable ne devra modifier aucun 
 
 ## Charte graphique
 
-Voir `docs/charte-graphique.md`. Résumé : noir charbon `#1D1D1A`, doré bronze `#917C48`, blanc cassé `#F7F4EE`, tons bois `#C7B099`. Le logo (`assets/images/logo.jpg`) et la bannière (`assets/images/cover.jpg`) s'utilisent **tels quels**, sans retouche ni recoloration.
+Voir `docs/charte-graphique.md`. Résumé : noir charbon `#1D1D1A`, doré bronze `#917C48`, blanc cassé `#F7F4EE`, tons bois `#C7B099`. Le logo (source vectorielle maîtresse `assets/brand/logo-bike-and-run.pdf`, servi en web via `assets/images/logo.png`) et la bannière (`assets/images/cover.jpg`) s'utilisent **tels quels**, sans retouche ni recoloration.
 
 ## SEO
 

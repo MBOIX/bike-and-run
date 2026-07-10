@@ -1,6 +1,8 @@
 # Charte graphique BIKE&RUN
 
-Charte dérivée des visuels officiels de l'enseigne : le logo badge (`assets/images/logo.jpg`) et la bannière boutique (`assets/images/cover.jpg`). Ces deux fichiers s'utilisent **tels quels** — pas de recadrage du badge, pas de recoloration, pas de version détourée tant que l'enseigne n'a pas fourni de déclinaisons.
+Charte dérivée des visuels officiels de l'enseigne : le logo et la bannière boutique (`assets/images/cover.jpg`).
+
+Le **logo** existe en source vectorielle maîtresse `assets/brand/logo-bike-and-run.pdf` (Illustrator, fond transparent). Pour le web on sert un PNG transparent dérivé `assets/images/logo.png` (rendu à 640 px, léger pour les tailles d'affichage 42–320 px). Les favicons sont recadrés sur la pastille (roue) depuis cette même source. Le logo s'utilise **tel quel** — pas de recoloration, pas de retouche ; regénérer les dérivés depuis le PDF si besoin d'une autre taille.
 
 ## Palette
 
