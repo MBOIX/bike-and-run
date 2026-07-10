@@ -271,6 +271,9 @@ function activerApparitions() {
     for (const cible of cibles) cible.classList.add('reveal--visible');
     return;
   }
+  // Seuil 0 : on révèle dès qu'un pixel entre dans le viewport. Un seuil non nul
+  // ne se déclencherait jamais sur une section plus haute que l'écran (le
+  // catalogue en 1 colonne sur mobile), qui resterait alors invisible.
   const observateur = new IntersectionObserver((entrees) => {
     for (const entree of entrees) {
       if (entree.isIntersecting) {
@@ -278,7 +281,7 @@ function activerApparitions() {
         observateur.unobserve(entree.target);
       }
     }
-  }, { threshold: 0.15 });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
   for (const cible of cibles) observateur.observe(cible);
 }
 
