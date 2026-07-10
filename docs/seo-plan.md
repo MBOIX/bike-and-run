@@ -2,7 +2,7 @@
 
 **Statut : plan validé, aucune action implémentée à ce jour.** Les phases seront mises en œuvre sur demande explicite ; aucune case ne se coche sans vérification du critère d'acceptation.
 
-Objectif : positionner le site sur les requêtes locales (« magasin de vélo Vire », « réparation vélo Calvados », « VTT Vire Normandie », « magasin running Vire »…) et garantir une base technique irréprochable. Le site étant une page unique statique, l'essentiel se joue sur la qualité technique, les données structurées et le SEO local.
+Objectif : **la première position Google sur les requêtes locales** (« magasin de vélo Vire », « réparation vélo Calvados », « VTT Vire Normandie », « magasin running Vire »…), pack local (carte Google) inclus. Le site étant une page unique statique, l'essentiel se joue sur la qualité technique, les données structurées et surtout le SEO local ancré sur l'adresse physique : **4 Rue du Cotin, 14500 Vire, France**. Cette adresse (NAP : nom, adresse, téléphone) doit être strictement identique, au caractère près, sur le site, la fiche Google et toutes les citations externes.
 
 ## Phase 1 — Socle technique
 
@@ -19,7 +19,7 @@ Objectif : positionner le site sur les requêtes locales (« magasin de vélo Vi
 
 ## Phase 2 — Données structurées et partage social
 
-- [ ] JSON-LD `BikeStore` (sous-type de `LocalBusiness`) : nom, adresse postale, horaires (`openingHoursSpecification`), image, URL, téléphone dès qu'il est connu.
+- [ ] JSON-LD `BikeStore` (sous-type de `LocalBusiness`) : nom, adresse postale complète (`streetAddress` : 4 Rue du Cotin, `postalCode` : 14500, `addressLocality` : Vire, `addressCountry` : FR), **coordonnées GPS** (`geo` avec `latitude`/`longitude` relevées sur place ou via le cadastre), lien carte (`hasMap`), zone desservie (`areaServed` : Vire Normandie et bocage virois), horaires (`openingHoursSpecification`), image, URL, téléphone dès qu'il est connu.
 - [ ] JSON-LD catalogue : `ItemList` des produits phares avec `Product` + `Offer` (prix TTC en EUR, disponibilité `InStock`/`PreOrder`/`OutOfStock`, `priceValidUntil` pour les soldes).
 - [ ] Open Graph (`og:title`, `og:description`, `og:image` = bannière, `og:locale` = `fr_FR`) et Twitter Card (`summary_large_image`).
 - [ ] Validation : Rich Results Test de Google et Sharing Debugger de Facebook.
@@ -46,14 +46,21 @@ Objectif : positionner le site sur les requêtes locales (« magasin de vélo Vi
 
 **Critères d'acceptation** : Lighthouse Performance ≥ 90 sur mobile, les trois Core Web Vitals au vert.
 
-## Phase 5 — SEO local et signaux externes
+## Phase 5 — SEO local et géolocalisation (le nerf de la guerre pour le top 1)
 
-- [ ] Créer/revendiquer la fiche **Google Business Profile** (catégorie « Magasin de vélos »), avec exactement les mêmes nom/adresse/horaires que le site (cohérence NAP).
+Sur une requête locale, Google classe d'abord le **pack local** (les trois fiches sur la carte) puis les résultats organiques. Viser le top 1 signifie gagner sur les deux tableaux : une fiche Google Business Profile irréprochable et un site qui la corrobore.
+
+- [ ] Créer/revendiquer la fiche **Google Business Profile** (catégorie principale « Magasin de vélos », secondaires « Atelier de réparation de vélos », « Magasin d'articles de sport ») : adresse épinglée précisément au 4 Rue du Cotin, horaires, photos de la boutique et de l'atelier, description reprenant les mots-clés locaux.
+- [ ] Relever les **coordonnées GPS exactes** de la boutique et les faire figurer dans le JSON-LD `geo` (phase 2) — cohérence stricte entre l'épingle Google Maps et le site.
+- [ ] Afficher l'adresse complète sur le site en HTML (`<address>`), avec un lien « Itinéraire » vers Google Maps ; envisager une carte embarquée (en chargement différé pour ne pas dégrader la phase 4).
+- [ ] **Stratégie d'avis clients** : solliciter systématiquement un avis Google après un achat ou une réparation (QR code en caisse), répondre à chaque avis — volume, fraîcheur et note des avis sont les premiers facteurs de classement du pack local.
+- [ ] Publications régulières sur la fiche Google (nouveautés, soldes, événements) pour signaler une activité vivante.
+- [ ] **Citations locales cohérentes** (NAP au caractère près) : PagesJaunes, mairie/office de tourisme de Vire Normandie, annuaires vélo/commerces de Normandie, Apple Business Connect, Bing Places.
 - [ ] Lier le site depuis les pages Facebook et Instagram de la boutique, et réciproquement (liens dans le footer).
-- [ ] Inscription dans les annuaires locaux pertinents (mairie/office de tourisme de Vire Normandie, PagesJaunes).
+- [ ] **Backlinks locaux** : presse locale (Ouest-France, La Voix le Bocage), clubs cyclistes et de course à pied du bocage virois, sponsoring de courses locales avec lien vers le site.
 - [ ] À terme : **nom de domaine personnalisé** (ex. `bikeandrun-vire.fr`). Le sous-domaine `github.io` suffit pour les démos, mais un domaine propre est indispensable pour le référencement réel — prévoir les redirections 301 à la bascule et mettre à jour canonical/sitemap/robots.
 
-**Critères d'acceptation** : fiche Google validée ; NAP strictement identique partout.
+**Critères d'acceptation** : fiche Google validée et complète à 100 % ; NAP strictement identique partout ; premiers avis clients publiés ; le site apparaît dans le pack local sur « magasin de vélo Vire ».
 
 ## Phase 6 — Mesure et suivi
 
