@@ -1,0 +1,14 @@
+# Système
+.DS_Store
+Thumbs.db
+
+# Secrets et environnement
+.env
+.env.*
+
+# Outils éventuels (aucune dépendance attendue à ce jour)
+node_modules/
+
+# Fichiers temporaires
+*.log
+*.tmp
