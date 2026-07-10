@@ -838,6 +838,25 @@ body:has(.fiche[open]) {
   font-size: 0.9rem;
 }
 
+/* Marqueur de la carte : petit vélo dans une pastille aux couleurs de l'enseigne */
+
+.marqueur-velo__badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--noir);
+  color: var(--blanc-casse);
+  border: 2px solid var(--dore);
+  box-shadow: 0 4px 10px rgba(29, 29, 26, 0.35);
+}
+
+.marqueur-velo__badge svg {
+  width: 26px;
+  height: 26px;
+}
+
 /* Bande adresse/horaires, écho du bas de la bannière physique */
 
 .venir {

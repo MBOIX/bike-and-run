@@ -256,9 +256,29 @@ function initialiserCarte(geolocalisation) {
     maxZoom: 19,
     attribution: '© les contributeurs <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(carte);
-  L.marker(position).addTo(carte)
+  L.marker(position, { icon: creerIconeVelo() }).addTo(carte)
     .bindPopup('<strong>BIKE&RUN</strong><br>4 Rue du Cotin, 14500 Vire')
     .openPopup();
+}
+
+// Marqueur maison : un petit vélo dans une pastille, à la place de la goutte
+// d'eau par défaut de Leaflet (qui dépendrait en plus d'une image du CDN).
+function creerIconeVelo() {
+  const velo = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="5" cy="18" r="3" />
+      <circle cx="19" cy="18" r="3" />
+      <polyline points="12 19 12 15 9 12 14 8 16 11 19 11" />
+      <circle cx="16" cy="5" r="1" />
+    </svg>`;
+  return L.divIcon({
+    className: 'marqueur-velo',
+    html: `<span class="marqueur-velo__badge">${velo}</span>`,
+    iconSize: [44, 44],
+    iconAnchor: [22, 22],
+    popupAnchor: [0, -22],
+  });
 }
 
 /* --------------------------------------------------------------------------
