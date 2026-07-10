@@ -1,13 +1,21 @@
 {
   "nom": "BIKE&RUN",
+  "baseline": "Le vélo et le running, de la tête aux pieds",
   "siren": "934 870 668",
   "presentation": "BIKE&RUN est le magasin de vélo et de running de Vire Normandie. Nous vous accueillons en boutique pour choisir votre prochain vélo — VTT, course, ville, électrique ou enfant —, vous équiper de la tête aux pieds et entretenir votre matériel dans notre atelier de réparation toutes marques. Coureurs et traileurs y trouvent aussi chaussures et équipement adaptés aux chemins du bocage.",
   "adresse": {
     "rue": "4 Rue du Cotin",
     "codePostal": "14500",
-    "ville": "Vire Normandie",
+    "ville": "Vire",
+    "communeNouvelle": "Vire Normandie",
     "departement": "Calvados",
-    "region": "Normandie"
+    "region": "Normandie",
+    "pays": "France"
+  },
+  "geolocalisation": {
+    "latitude": null,
+    "longitude": null,
+    "note": "Coordonnées GPS exactes à relever sur place — requises par le plan SEO (JSON-LD geo et cohérence avec l'épingle Google Maps)."
   },
   "horaires": [
     { "jours": "Du mardi au samedi", "creneaux": ["10 h – 13 h", "14 h – 19 h"] },
@@ -27,6 +35,28 @@
     "Atelier de réparation toutes marques",
     "Conseil personnalisé et essai en boutique"
   ],
+  "marquesDistribuees": [
+    "Scott",
+    "Lapierre",
+    "Cube",
+    "MET",
+    "Abus",
+    "Salomon",
+    "Hoka",
+    "Garmin",
+    "Shimano",
+    "Continental",
+    "Elite"
+  ],
+  "moyensPaiement": [
+    "Carte bancaire",
+    "Espèces",
+    "Chèque"
+  ],
+  "acces": {
+    "parking": "À compléter (stationnement à proximité)",
+    "accessibilitePmr": "À compléter"
+  },
   "contact": {
     "telephone": "À compléter",
     "email": "À compléter",

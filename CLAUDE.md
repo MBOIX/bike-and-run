@@ -26,8 +26,8 @@ Le site présente le catalogue de produits et la boutique. **Il n'y a ni panier,
 
 Les données vivent dans `data/` et sont consommées **exclusivement** via la couche d'accès `js/catalog.js` (jamais de `fetch` de données ailleurs dans le code) :
 
-- `data/products.csv` — catalogue produits **mock** (colonnes : `id, categorie, marque, nom, description, prix_ttc_eur, prix_solde_eur, taux_remise_pct, disponibilite, nouveaute, image`). Valeurs de `disponibilite` : `En stock`, `Sur commande`, `Rupture`.
-- `data/boutique.json` — informations de présentation de la boutique (identité, adresse, horaires, services).
+- `data/products.csv` — catalogue produits **mock** (colonnes : `id, categorie, marque, nom, description, genre, tailles, couleur, annee_modele, etat, prix_ttc_eur, prix_solde_eur, taux_remise_pct, disponibilite, nouveaute, mise_en_avant, url_fabricant, image`). Valeurs de `disponibilite` : `En stock`, `Sur commande`, `Rupture` ; `etat` : `Neuf` ou `Occasion` ; `mise_en_avant` marque les produits phares destinés à une future section « sélection du moment ».
+- `data/boutique.json` — informations de présentation de la boutique (identité, baseline, adresse, géolocalisation à relever, horaires, services, marques distribuées, moyens de paiement, accès, contact).
 
 Contenu du mock : il s'appuie principalement sur les **gammes moyennes et hautes SCOTT** (vélos, casques, chaussures running/trail), complétées par quelques autres marques (Lapierre, Cube, MET, Salomon, Hoka, accessoires).
 
@@ -61,7 +61,7 @@ Le référencement suit le plan `docs/seo-plan.md`. **Statut : plan rédigé, im
 
 ```bash
 python3 -m http.server 8000   # serveur local → http://localhost:8000
-node --test js/               # tests unitaires (node:test, zéro dépendance)
+node --test                   # tests unitaires (node:test, zéro dépendance)
 ```
 
 Avant tout commit : lancer les tests, vérifier le rendu local, contrôler qu'aucun chemin absolu n'a été introduit.
