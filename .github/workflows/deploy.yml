@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 22
       - name: Tests unitaires
-        run: node --test js/
+        run: node --test
 
   deploy:
     needs: tests
