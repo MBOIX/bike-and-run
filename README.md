@@ -15,9 +15,11 @@ Landing page de présentation de la boutique **BIKE&RUN** — vélos (VTT, cours
 ```bash
 git clone git@github.com:MBOIX/bike-and-run.git
 cd bike-and-run
-python3 -m http.server 8000
-# → http://localhost:8000
+./dev.sh          # sert le site et ouvre http://localhost:8000 (autre port : ./dev.sh 3000)
 ```
+
+⚠️ Ouvrir `index.html` en double-clic (`file://`) ne fonctionne pas : les navigateurs y bloquent
+les modules ES et `fetch()` par sécurité. Le site doit être servi en HTTP, d'où `./dev.sh`.
 
 ## Tests
 

@@ -60,9 +60,11 @@ Le référencement suit le plan `docs/seo-plan.md`. **Statut : plan rédigé, im
 ## Développement local et vérifications
 
 ```bash
-python3 -m http.server 8000   # serveur local → http://localhost:8000
+./dev.sh                      # sert le site et ouvre http://localhost:8000 (autre port : ./dev.sh 3000)
 node --test                   # tests unitaires (node:test, zéro dépendance)
 ```
+
+Ne jamais ouvrir `index.html` en `file://` : les navigateurs y bloquent modules ES et `fetch()` — toujours passer par le serveur HTTP local.
 
 Avant tout commit : lancer les tests, vérifier le rendu local, contrôler qu'aucun chemin absolu n'a été introduit.
 
