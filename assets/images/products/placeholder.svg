@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Photo à venir">
+  <rect width="600" height="450" fill="#f7f4ee"/>
+  <g fill="none" stroke="#c7b099" stroke-width="5">
+    <circle cx="300" cy="210" r="105"/>
+    <circle cx="300" cy="210" r="62"/>
+    <path d="M300 105v210M195 210h210M226 136l148 148M374 136 226 284"/>
+  </g>
+  <circle cx="300" cy="210" r="10" fill="#917c48"/>
+  <text x="300" y="398" text-anchor="middle" font-family="Poppins, system-ui, sans-serif" font-size="20" letter-spacing="6" fill="#887b6b">PHOTO À VENIR</text>
+</svg>

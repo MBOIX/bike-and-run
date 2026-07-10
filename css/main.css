@@ -47,6 +47,11 @@ a {
   color: inherit;
 }
 
+:focus-visible {
+  outline: 3px solid var(--dore);
+  outline-offset: 2px;
+}
+
 .conteneur {
   width: min(1120px, 100% - 3rem);
   margin-inline: auto;
@@ -257,6 +262,18 @@ a {
   border-color: var(--blanc-casse);
 }
 
+.bouton--secondaire {
+  color: var(--noir);
+  background: transparent;
+}
+
+.bouton--secondaire:hover,
+.bouton--secondaire:focus-visible {
+  color: var(--blanc);
+  background: var(--noir);
+  border-color: var(--noir);
+}
+
 /* --------------------------------------------------------------------------
    Ruban défilant des univers, façon enseigne
    -------------------------------------------------------------------------- */
@@ -290,18 +307,49 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Catalogue
+   Catalogue : sélection, filtres, tri
    -------------------------------------------------------------------------- */
 
 .catalogue {
   padding-block: 4.5rem;
 }
 
+.catalogue__sous-titre {
+  margin: 2.4rem 0 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--dore);
+}
+
+.catalogue__selection {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(255px, 1fr);
+  gap: 1.4rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.6rem;
+}
+
+.catalogue__selection .product-card {
+  scroll-snap-align: start;
+}
+
+.catalogue__outils {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.2rem;
+}
+
 .catalogue__filtres {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 2rem;
 }
 
 .filtre {
@@ -318,6 +366,11 @@ a {
 
 .filtre:hover {
   border-color: var(--dore);
+}
+
+.filtre__compte {
+  font-weight: 400;
+  opacity: 0.65;
 }
 
 .filtre[aria-pressed='true'] {
@@ -337,15 +390,45 @@ a {
   border-color: var(--dore);
 }
 
+.catalogue__tri {
+  font-size: 0.85rem;
+  color: var(--bois-brun);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.catalogue__tri select {
+  font: 600 0.85rem/1.4 'Poppins', system-ui, sans-serif;
+  color: var(--noir);
+  background: var(--blanc);
+  border: 1px solid var(--bois-clair);
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
 .catalogue__statut {
   margin-top: 1.2rem;
   font-size: 0.9rem;
   color: var(--bois-brun);
 }
 
+.catalogue__vide {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--bois-brun);
+  border: 1px dashed var(--bois-clair);
+}
+
+/* --------------------------------------------------------------------------
+   Cartes produit (visuel d'abord, carte entière cliquable)
+   -------------------------------------------------------------------------- */
+
 .catalogue__grille {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.4rem;
   margin-top: 1.6rem;
 }
@@ -354,8 +437,6 @@ a {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
-  padding: 1.4rem 1.4rem 1.2rem;
   background: var(--blanc);
   border: 1px solid rgb(199 176 153 / 0.55);
   border-top: 3px solid var(--noir);
@@ -372,11 +453,26 @@ a {
   border-top-color: var(--dore);
 }
 
+.product-card__visuel {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--blanc);
+  border-bottom: 1px solid rgb(199 176 153 / 0.4);
+}
+
+.product-card__visuel > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.9rem;
+}
+
 .product-card__flags {
   position: absolute;
-  top: -0.75rem;
-  right: 0.9rem;
+  top: 0.7rem;
+  left: 0.7rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
 }
 
@@ -398,10 +494,32 @@ a {
   background: var(--bois-brun);
 }
 
-.product-card__meta {
-  margin: 0;
-  font-size: 0.78rem;
-  color: var(--bois-brun);
+.product-card__cta {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blanc);
+  background: var(--noir);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.product-card:hover .product-card__cta,
+.product-card:focus-within .product-card__cta {
+  opacity: 1;
+}
+
+.product-card__corps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.2rem 0.6rem;
+  flex-grow: 1;
 }
 
 .product-card__categorie {
@@ -414,7 +532,7 @@ a {
 }
 
 .product-card__nom {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 700;
 }
 
@@ -423,11 +541,10 @@ a {
   color: var(--bois-brun);
 }
 
-.product-card__description {
+.product-card__meta {
   margin: 0;
-  font-size: 0.88rem;
-  color: #4c4a44;
-  flex-grow: 1;
+  font-size: 0.78rem;
+  color: var(--bois-brun);
 }
 
 .product-card__pied {
@@ -435,7 +552,8 @@ a {
   align-items: baseline;
   justify-content: space-between;
   gap: 0.8rem;
-  padding-top: 0.7rem;
+  margin: 0 1.2rem;
+  padding-block: 0.7rem 1rem;
   border-top: 1px dashed var(--bois-clair);
 }
 
@@ -461,6 +579,19 @@ a {
   color: var(--dore);
 }
 
+.product-card__ouvrir {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.product-card__ouvrir:focus-visible {
+  outline: 3px solid var(--dore);
+  outline-offset: -3px;
+}
+
 .disponibilite {
   flex-shrink: 0;
   font-size: 0.72rem;
@@ -477,7 +608,168 @@ a {
 .disponibilite--rupture { background: var(--bois-brun); }
 
 /* --------------------------------------------------------------------------
-   Bannière officielle et boutique
+   Fiche produit (dialog natif)
+   -------------------------------------------------------------------------- */
+
+.fiche {
+  width: min(880px, calc(100% - 2rem));
+  max-height: calc(100dvh - 3rem);
+  padding: 0;
+  border: 1px solid var(--dore);
+  border-top: 4px solid var(--dore);
+  background: var(--blanc);
+  color: var(--noir);
+}
+
+.fiche::backdrop {
+  background: rgb(22 22 19 / 0.72);
+}
+
+body:has(.fiche[open]) {
+  overflow: hidden;
+}
+
+.fiche__fermer {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 1;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--bois-clair);
+  border-radius: 50%;
+  background: var(--blanc);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.fiche__fermer:hover {
+  background: var(--noir);
+  color: var(--blanc);
+}
+
+.fiche__grille {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+}
+
+.fiche__galerie {
+  padding: 1.4rem;
+  background: var(--blanc);
+  border-right: 1px solid rgb(199 176 153 / 0.4);
+}
+
+.fiche__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+}
+
+.fiche__vignettes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.fiche__vignette {
+  width: 64px;
+  height: 52px;
+  padding: 3px;
+  border: 1px solid var(--bois-clair);
+  background: var(--blanc);
+  cursor: pointer;
+}
+
+.fiche__vignette--active {
+  border: 2px solid var(--dore);
+}
+
+.fiche__vignette img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fiche__infos {
+  padding: 1.8rem 1.8rem 1.6rem;
+}
+
+.fiche__titre {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.fiche__drapeaux {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.fiche__drapeaux:empty {
+  display: none;
+}
+
+.fiche__prix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0.9rem 0 0;
+}
+
+.fiche__prix .product-card__prix-courant {
+  font-size: 1.5rem;
+}
+
+.fiche__description {
+  margin: 0.9rem 0 0;
+  font-size: 0.92rem;
+  color: #4c4a44;
+}
+
+.fiche__specs {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1.4rem;
+  margin: 1.1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--bois-clair);
+  font-size: 0.88rem;
+}
+
+.fiche__specs dt {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bois-brun);
+  align-self: baseline;
+}
+
+.fiche__specs dd {
+  margin: 0;
+}
+
+.fiche__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.3rem;
+}
+
+.fiche__reassurance {
+  margin: 1.1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--bois-clair);
+  font-size: 0.8rem;
+  color: var(--bois-brun);
+}
+
+/* --------------------------------------------------------------------------
+   Bannière officielle, boutique et carte
    -------------------------------------------------------------------------- */
 
 .bandeau-banniere img {
@@ -523,6 +815,19 @@ a {
   margin: 0.6rem 0 0;
   font-size: 0.9rem;
   color: #4c4a44;
+}
+
+.carte-boutique {
+  position: relative;
+  isolation: isolate;
+  height: 380px;
+  display: grid;
+  place-items: center;
+  background: var(--blanc);
+  border: 1px solid var(--bois-clair);
+  border-top: 3px solid var(--noir);
+  color: var(--bois-brun);
+  font-size: 0.9rem;
 }
 
 /* Bande adresse/horaires, écho du bas de la bannière physique */
@@ -636,11 +941,22 @@ a {
     transform: none;
     transition: none;
   }
+
+  .product-card,
+  .product-card:hover {
+    transform: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
-   Écrans étroits
+   Écrans intermédiaires et étroits
    -------------------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .catalogue__grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 860px) {
   .hero__grille {
@@ -680,5 +996,24 @@ a {
   .site-nav {
     margin-left: 0;
     justify-content: center;
+  }
+
+  .fiche__grille {
+    grid-template-columns: 1fr;
+  }
+
+  .fiche__galerie {
+    border-right: 0;
+    border-bottom: 1px solid rgb(199 176 153 / 0.4);
+  }
+}
+
+@media (max-width: 620px) {
+  .catalogue__grille {
+    grid-template-columns: 1fr;
+  }
+
+  .carte-boutique {
+    height: 300px;
   }
 }

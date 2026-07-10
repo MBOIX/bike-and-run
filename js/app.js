@@ -1,11 +1,32 @@
-import { loadProducts, formatPrice } from './catalog.js';
+import { loadProducts, loadBoutique, formatPrice } from './catalog.js';
 
 const FILTRE_TOUS = 'Tous';
 const FILTRE_SOLDES = 'En solde';
+const IMAGE_PAR_DEFAUT = 'assets/images/products/placeholder.svg';
 
+const blocSelection = document.querySelector('#catalogue-bloc-selection');
+const grilleSelection = document.querySelector('#catalogue-selection');
 const grille = document.querySelector('#catalogue-grille');
 const conteneurFiltres = document.querySelector('#catalogue-filtres');
+const selecteurTri = document.querySelector('#catalogue-tri');
 const statut = document.querySelector('#catalogue-statut');
+const fiche = document.querySelector('#fiche-produit');
+
+const etat = { products: [], filtre: FILTRE_TOUS, tri: 'selection' };
+
+const TRIS = {
+  selection: (a, b) =>
+    Number(b.miseEnAvant) - Number(a.miseEnAvant)
+    || Number(b.enSolde) - Number(a.enSolde)
+    || Number(b.nouveaute) - Number(a.nouveaute),
+  'prix-croissant': (a, b) => prixEffectif(a) - prixEffectif(b),
+  'prix-decroissant': (a, b) => prixEffectif(b) - prixEffectif(a),
+  nouveautes: (a, b) => Number(b.nouveaute) - Number(a.nouveaute),
+};
+
+function prixEffectif(product) {
+  return product.prixSolde ?? product.prix;
+}
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({
@@ -23,6 +44,10 @@ function disponibiliteModifier(disponibilite) {
   return 'rupture';
 }
 
+function badgeDisponibilite(product) {
+  return `<span class="disponibilite disponibilite--${disponibiliteModifier(product.disponibilite)}">${escapeHtml(product.disponibilite)}</span>`;
+}
+
 function blocPrix(product) {
   if (!product.enSolde) {
     return `<strong class="product-card__prix-courant">${formatPrice(product.prix)}</strong>`;
@@ -33,29 +58,43 @@ function blocPrix(product) {
   `;
 }
 
-function carteProduit(product) {
-  const flags = [
+function drapeaux(product) {
+  return [
     product.enSolde ? `<span class="product-card__flag product-card__flag--solde">−${product.tauxRemise} %</span>` : '',
     product.nouveaute ? '<span class="product-card__flag product-card__flag--nouveaute">Nouveauté</span>' : '',
     product.occasion ? '<span class="product-card__flag product-card__flag--occasion">Occasion</span>' : '',
   ].join('');
+}
 
-  const meta = [product.genre, product.tailles, product.couleur, product.anneeModele]
+/* --------------------------------------------------------------------------
+   Cartes du catalogue
+   -------------------------------------------------------------------------- */
+
+function carteProduit(product) {
+  const visuel = product.images[0] ?? IMAGE_PAR_DEFAUT;
+  const meta = [product.genre, product.tailles, product.anneeModele]
     .filter(Boolean)
     .map(escapeHtml)
     .join(' · ');
 
   return `
     <article class="product-card${product.enSolde ? ' product-card--solde' : ''}">
-      <div class="product-card__flags">${flags}</div>
-      <p class="product-card__categorie">${escapeHtml(product.categorie)}</p>
-      <h3 class="product-card__nom">${escapeHtml(product.marque)} <span>${escapeHtml(product.nom)}</span></h3>
-      <p class="product-card__meta">${meta}</p>
-      <p class="product-card__description">${escapeHtml(product.description)}</p>
+      <div class="product-card__visuel">
+        <img src="${escapeHtml(visuel)}" alt="${escapeHtml(`${product.marque} ${product.nom}`)}" loading="lazy" width="600" height="450">
+        <div class="product-card__flags">${drapeaux(product)}</div>
+        <span class="product-card__cta" aria-hidden="true">Voir la fiche</span>
+      </div>
+      <div class="product-card__corps">
+        <p class="product-card__categorie">${escapeHtml(product.categorie)}</p>
+        <h3 class="product-card__nom">${escapeHtml(product.marque)} <span>${escapeHtml(product.nom)}</span></h3>
+        <p class="product-card__meta">${meta}</p>
+      </div>
       <footer class="product-card__pied">
         <p class="product-card__prix">${blocPrix(product)}</p>
-        <span class="disponibilite disponibilite--${disponibiliteModifier(product.disponibilite)}">${escapeHtml(product.disponibilite)}</span>
+        ${badgeDisponibilite(product)}
       </footer>
+      <button type="button" class="product-card__ouvrir" data-id="${escapeHtml(product.id)}"
+        aria-label="Voir la fiche : ${escapeHtml(`${product.marque} ${product.nom}`)}"></button>
     </article>
   `;
 }
@@ -66,33 +105,165 @@ function filtrer(products, filtre) {
   return products.filter((product) => product.categorie === filtre);
 }
 
-function afficher(products, total) {
-  grille.innerHTML = products.map(carteProduit).join('');
-  statut.textContent = products.length === total
-    ? `${total} produits au catalogue.`
-    : `${products.length} produit${products.length > 1 ? 's' : ''} sur ${total}.`;
+function afficherCatalogue() {
+  const produits = [...filtrer(etat.products, etat.filtre)].sort(TRIS[etat.tri]);
+  if (produits.length === 0) {
+    grille.innerHTML = '<p class="catalogue__vide">Aucun produit dans cette sélection pour le moment — passez nous voir en boutique !</p>';
+  } else {
+    grille.innerHTML = produits.map(carteProduit).join('');
+  }
+  statut.textContent = produits.length === etat.products.length
+    ? `${etat.products.length} produits au catalogue.`
+    : `${produits.length} produit${produits.length > 1 ? 's' : ''} sur ${etat.products.length}.`;
 }
 
-function construireFiltres(products) {
-  const categories = [...new Set(products.map((product) => product.categorie))];
-  const libelles = [FILTRE_TOUS, ...categories, FILTRE_SOLDES];
+function afficherSelection() {
+  const misEnAvant = etat.products.filter((product) => product.miseEnAvant);
+  if (misEnAvant.length === 0) {
+    blocSelection.hidden = true;
+    return;
+  }
+  grilleSelection.innerHTML = misEnAvant.map(carteProduit).join('');
+}
 
-  conteneurFiltres.innerHTML = libelles.map((libelle) => `
+function construireFiltres() {
+  const categories = [...new Set(etat.products.map((product) => product.categorie))];
+  const compte = (libelle) => filtrer(etat.products, libelle).length;
+
+  conteneurFiltres.innerHTML = [FILTRE_TOUS, ...categories, FILTRE_SOLDES].map((libelle) => `
     <button type="button" class="filtre${libelle === FILTRE_SOLDES ? ' filtre--soldes' : ''}"
-      data-filtre="${escapeHtml(libelle)}" aria-pressed="${libelle === FILTRE_TOUS}">
-      ${escapeHtml(libelle)}
+      data-filtre="${escapeHtml(libelle)}" aria-pressed="${libelle === etat.filtre}">
+      ${escapeHtml(libelle)} <span class="filtre__compte">${compte(libelle)}</span>
     </button>
   `).join('');
 
   conteneurFiltres.addEventListener('click', (event) => {
     const bouton = event.target.closest('button[data-filtre]');
     if (!bouton) return;
+    etat.filtre = bouton.dataset.filtre;
     for (const autre of conteneurFiltres.querySelectorAll('button[data-filtre]')) {
       autre.setAttribute('aria-pressed', String(autre === bouton));
     }
-    afficher(filtrer(products, bouton.dataset.filtre), products.length);
+    afficherCatalogue();
   });
 }
+
+/* --------------------------------------------------------------------------
+   Fiche produit (dialog natif : focus piégé, Échap pour fermer)
+   -------------------------------------------------------------------------- */
+
+function specifications(product) {
+  const lignes = [
+    ['Référence', product.id],
+    ['Genre', product.genre],
+    ['Tailles', product.tailles],
+    ['Couleur', product.couleur],
+    ['Année modèle', product.anneeModele],
+    ['État', product.occasion ? 'Occasion révisée en atelier' : 'Neuf'],
+  ].filter(([, valeur]) => Boolean(valeur));
+
+  return lignes
+    .map(([nom, valeur]) => `<dt>${escapeHtml(nom)}</dt><dd>${escapeHtml(valeur)}</dd>`)
+    .join('');
+}
+
+function galerie(product) {
+  const images = product.images.length > 0 ? product.images : [IMAGE_PAR_DEFAUT];
+  const alt = escapeHtml(`${product.marque} ${product.nom}`);
+  const vignettes = images.length < 2 ? '' : `
+    <div class="fiche__vignettes" role="group" aria-label="Autres photos">
+      ${images.map((source, index) => `
+        <button type="button" class="fiche__vignette${index === 0 ? ' fiche__vignette--active' : ''}" data-image="${escapeHtml(source)}"
+          aria-label="Photo ${index + 1} sur ${images.length}">
+          <img src="${escapeHtml(source)}" alt="" loading="lazy">
+        </button>
+      `).join('')}
+    </div>
+  `;
+  return `
+    <div class="fiche__galerie">
+      <img class="fiche__image" src="${escapeHtml(images[0])}" alt="${alt}" width="600" height="450">
+      ${vignettes}
+    </div>
+  `;
+}
+
+function ouvrirFiche(product) {
+  const lienFabricant = product.urlFabricant
+    ? `<a class="bouton bouton--secondaire" href="${escapeHtml(product.urlFabricant)}" target="_blank" rel="noopener">Fiche fabricant</a>`
+    : '';
+
+  fiche.innerHTML = `
+    <button type="button" class="fiche__fermer" data-fermer aria-label="Fermer la fiche">✕</button>
+    <div class="fiche__grille">
+      ${galerie(product)}
+      <div class="fiche__infos">
+        <p class="product-card__categorie">${escapeHtml(product.categorie)}</p>
+        <h3 class="fiche__titre" id="fiche-titre">${escapeHtml(product.marque)} ${escapeHtml(product.nom)}</h3>
+        <div class="fiche__drapeaux">${drapeaux(product)}</div>
+        <p class="fiche__prix">${blocPrix(product)} ${badgeDisponibilite(product)}</p>
+        <p class="fiche__description">${escapeHtml(product.description)}</p>
+        <dl class="fiche__specs">${specifications(product)}</dl>
+        <div class="fiche__actions">
+          <a class="bouton bouton--primaire" href="#venir" data-fermer>Voir en boutique</a>
+          ${lienFabricant}
+        </div>
+        <p class="fiche__reassurance">Prix TTC. Produit présenté en boutique — conseil personnalisé, essai
+        et préparation par notre atelier au 4 Rue du Cotin, à Vire.</p>
+      </div>
+    </div>
+  `;
+  fiche.showModal();
+}
+
+function brancherFiche() {
+  document.addEventListener('click', (event) => {
+    const bouton = event.target.closest('.product-card__ouvrir');
+    if (!bouton) return;
+    const product = etat.products.find((candidat) => candidat.id === bouton.dataset.id);
+    if (product) ouvrirFiche(product);
+  });
+
+  fiche.addEventListener('click', (event) => {
+    if (event.target === fiche || event.target.closest('[data-fermer]')) {
+      fiche.close();
+      return;
+    }
+    const vignette = event.target.closest('.fiche__vignette');
+    if (vignette) {
+      fiche.querySelector('.fiche__image').src = vignette.dataset.image;
+      for (const autre of fiche.querySelectorAll('.fiche__vignette')) {
+        autre.classList.toggle('fiche__vignette--active', autre === vignette);
+      }
+    }
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Carte de localisation (Leaflet + tuiles OpenStreetMap)
+   -------------------------------------------------------------------------- */
+
+function initialiserCarte(geolocalisation) {
+  const element = document.querySelector('#carte-boutique');
+  if (!element) return;
+  if (typeof L === 'undefined' || !geolocalisation?.latitude || !geolocalisation?.longitude) {
+    element.textContent = 'Carte indisponible — retrouvez-nous au 4 Rue du Cotin, 14500 Vire.';
+    return;
+  }
+  const position = [geolocalisation.latitude, geolocalisation.longitude];
+  const carte = L.map(element, { scrollWheelZoom: false }).setView(position, 16);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© les contributeurs <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(carte);
+  L.marker(position).addTo(carte)
+    .bindPopup('<strong>BIKE&RUN</strong><br>4 Rue du Cotin, 14500 Vire')
+    .openPopup();
+}
+
+/* --------------------------------------------------------------------------
+   Apparitions au défilement
+   -------------------------------------------------------------------------- */
 
 function activerApparitions() {
   const cibles = document.querySelectorAll('.reveal');
@@ -111,16 +282,38 @@ function activerApparitions() {
   for (const cible of cibles) observateur.observe(cible);
 }
 
+/* --------------------------------------------------------------------------
+   Initialisation
+   -------------------------------------------------------------------------- */
+
 async function initialiserCatalogue() {
   try {
-    const products = await loadProducts();
-    construireFiltres(products);
-    afficher(products, products.length);
+    etat.products = await loadProducts();
+    construireFiltres();
+    afficherSelection();
+    afficherCatalogue();
+    selecteurTri.addEventListener('change', () => {
+      etat.tri = selecteurTri.value;
+      afficherCatalogue();
+    });
+    brancherFiche();
   } catch (error) {
+    blocSelection.hidden = true;
     statut.textContent = 'Le catalogue est momentanément indisponible. Retrouvez tous nos produits en boutique, 4 Rue du Cotin à Vire.';
+    console.error(error);
+  }
+}
+
+async function initialiserBoutique() {
+  try {
+    const boutique = await loadBoutique();
+    initialiserCarte(boutique.geolocalisation);
+  } catch (error) {
+    initialiserCarte(null);
     console.error(error);
   }
 }
 
 activerApparitions();
 initialiserCatalogue();
+initialiserBoutique();

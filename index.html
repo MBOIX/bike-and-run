@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -56,9 +58,26 @@
       <h2 class="section-titre">Le catalogue</h2>
       <p class="section-intro">
         Une sélection de vélos, casques et chaussures orientée gammes intermédiaires et hautes,
-        disponible en boutique. Les prix s'entendent TTC.
+        disponible en boutique. Les prix s'entendent TTC. Cliquez sur un produit pour ouvrir sa fiche.
       </p>
-      <div class="catalogue__filtres" id="catalogue-filtres"></div>
+
+      <div id="catalogue-bloc-selection">
+        <h3 class="catalogue__sous-titre">La sélection du moment</h3>
+        <div class="catalogue__selection" id="catalogue-selection"></div>
+      </div>
+
+      <div class="catalogue__outils">
+        <div class="catalogue__filtres" id="catalogue-filtres"></div>
+        <label class="catalogue__tri" for="catalogue-tri">
+          Trier
+          <select id="catalogue-tri">
+            <option value="selection">Notre sélection</option>
+            <option value="prix-croissant">Prix croissant</option>
+            <option value="prix-decroissant">Prix décroissant</option>
+            <option value="nouveautes">Nouveautés d'abord</option>
+          </select>
+        </label>
+      </div>
       <p class="catalogue__statut" id="catalogue-statut">Chargement du catalogue…</p>
       <div class="catalogue__grille" id="catalogue-grille"></div>
       <noscript>
@@ -97,6 +116,9 @@
             <p>Un conseil personnalisé en boutique, pour repartir avec le matériel qui correspond vraiment à votre pratique.</p>
           </article>
         </div>
+        <h3 class="catalogue__sous-titre">Où nous trouver</h3>
+        <div id="carte-boutique" class="carte-boutique" role="region"
+          aria-label="Carte de localisation de la boutique BIKE&amp;RUN, 4 Rue du Cotin à Vire">Chargement de la carte…</div>
       </div>
     </section>
 
@@ -126,6 +148,10 @@
     </div>
   </footer>
 
+  <dialog class="fiche" id="fiche-produit" aria-labelledby="fiche-titre"></dialog>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous" defer></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

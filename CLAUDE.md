@@ -17,6 +17,7 @@ Le site présente le catalogue de produits et la boutique. **Il n'y a ni panier,
 ## Stack et contraintes techniques
 
 - **HTML / CSS / JS vanilla uniquement.** Zéro framework, zéro dépendance npm, zéro étape de build.
+- Exception unique : **Leaflet 1.9.4** (carte de localisation) chargé depuis le CDN unpkg avec empreintes SRI, tuiles OpenStreetMap. Toute nouvelle dépendance externe doit être validée explicitement.
 - JavaScript en **modules ES natifs** (`<script type="module">`).
 - Hébergement : **GitHub Pages** via GitHub Actions (`.github/workflows/deploy.yml`). Le site est servi sous `https://mboix.github.io/bike-and-run/` → **toujours utiliser des chemins relatifs** (`data/products.csv`, jamais `/data/products.csv`).
 - Compatibilité : navigateurs récents (evergreen). Pas de transpilation.
