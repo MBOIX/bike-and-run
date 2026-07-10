@@ -1,0 +1,684 @@
+/* ==========================================================================
+   BIKE&RUN — feuille de style principale
+   Charte : docs/charte-graphique.md (noir charbon, doré bronze, blanc cassé, bois)
+   ========================================================================== */
+
+:root {
+  --noir: #1d1d1a;
+  --noir-profond: #161613;
+  --dore: #917c48;
+  --laiton: #b39a5f;
+  --blanc-casse: #f7f4ee;
+  --bois-clair: #c7b099;
+  --bois-brun: #887b6b;
+  --blanc: #ffffff;
+  --vert-stock: #3e7a4e;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--noir);
+  background: var(--blanc-casse);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.conteneur {
+  width: min(1120px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Titres de section : capitales grasses et filet doré, comme la bannière
+   -------------------------------------------------------------------------- */
+
+.section-titre {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.section-titre::after {
+  content: '';
+  display: block;
+  width: 4.5rem;
+  height: 3px;
+  margin-top: 0.6rem;
+  background: linear-gradient(90deg, var(--dore) 70%, transparent);
+}
+
+.section-intro {
+  max-width: 46rem;
+  margin: 1rem 0 0;
+  color: var(--bois-brun);
+}
+
+/* --------------------------------------------------------------------------
+   En-tête
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--noir);
+  color: var(--blanc);
+  border-bottom: 1px solid rgb(145 124 72 / 0.45);
+}
+
+.site-header__barre {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.65rem;
+}
+
+.site-header__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--dore);
+}
+
+.site-header__marque {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 1.05rem;
+}
+
+.site-header__marque span {
+  color: var(--laiton);
+}
+
+.site-nav {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.4rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.site-nav a {
+  text-decoration: none;
+  padding-block: 0.3rem;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--laiton);
+  border-bottom-color: var(--dore);
+}
+
+/* --------------------------------------------------------------------------
+   Hero : charbon et grain, le badge s'y fond nativement
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  background:
+    radial-gradient(50rem 30rem at 85% 20%, rgb(145 124 72 / 0.16), transparent 60%),
+    radial-gradient(40rem 26rem at 5% 95%, rgb(199 176 153 / 0.08), transparent 55%),
+    var(--noir);
+  color: var(--blanc);
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.hero__grille {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 2.5rem;
+  padding-block: 4.5rem 5rem;
+}
+
+.hero__lieu {
+  margin: 0 0 1rem;
+  color: var(--laiton);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+}
+
+.hero__titre {
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero__titre em {
+  font-style: normal;
+  color: var(--laiton);
+}
+
+.hero__univers {
+  margin: 1.4rem 0 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--blanc-casse);
+}
+
+.hero__univers span {
+  color: var(--dore);
+  padding-inline: 0.45rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.2rem;
+}
+
+.hero__badge {
+  justify-self: center;
+  width: min(320px, 70vw);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgb(145 124 72 / 0.55),
+    0 0 0 10px rgb(145 124 72 / 0.12),
+    0 30px 60px rgb(0 0 0 / 0.45);
+  animation: flottement 7s ease-in-out infinite;
+}
+
+@keyframes flottement {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.bouton {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  font: 600 0.9rem/1 'Poppins', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: 1px solid var(--dore);
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.bouton--primaire {
+  background: var(--dore);
+  color: var(--blanc);
+}
+
+.bouton--primaire:hover,
+.bouton--primaire:focus-visible {
+  background: var(--laiton);
+  border-color: var(--laiton);
+}
+
+.bouton--contour {
+  color: var(--blanc-casse);
+  background: transparent;
+}
+
+.bouton--contour:hover,
+.bouton--contour:focus-visible {
+  color: var(--noir);
+  background: var(--blanc-casse);
+  border-color: var(--blanc-casse);
+}
+
+/* --------------------------------------------------------------------------
+   Ruban défilant des univers, façon enseigne
+   -------------------------------------------------------------------------- */
+
+.ruban {
+  background: var(--noir-profond);
+  color: var(--bois-clair);
+  border-block: 1px solid rgb(145 124 72 / 0.5);
+  overflow: hidden;
+  white-space: nowrap;
+  padding-block: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+.ruban__piste {
+  display: inline-block;
+  animation: defilement 36s linear infinite;
+}
+
+.ruban__piste span {
+  color: var(--dore);
+  padding-inline: 1.1rem;
+}
+
+@keyframes defilement {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* --------------------------------------------------------------------------
+   Catalogue
+   -------------------------------------------------------------------------- */
+
+.catalogue {
+  padding-block: 4.5rem;
+}
+
+.catalogue__filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.filtre {
+  padding: 0.45rem 1rem;
+  font: 600 0.8rem/1.4 'Poppins', system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--noir);
+  background: var(--blanc);
+  border: 1px solid var(--bois-clair);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.filtre:hover {
+  border-color: var(--dore);
+}
+
+.filtre[aria-pressed='true'] {
+  background: var(--noir);
+  color: var(--blanc);
+  border-color: var(--noir);
+}
+
+.filtre--soldes {
+  border-color: var(--dore);
+  color: var(--dore);
+}
+
+.filtre--soldes[aria-pressed='true'] {
+  background: var(--dore);
+  color: var(--blanc);
+  border-color: var(--dore);
+}
+
+.catalogue__statut {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--bois-brun);
+}
+
+.catalogue__grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  gap: 1.4rem;
+  margin-top: 1.6rem;
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.4rem 1.4rem 1.2rem;
+  background: var(--blanc);
+  border: 1px solid rgb(199 176 153 / 0.55);
+  border-top: 3px solid var(--noir);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgb(29 29 26 / 0.12);
+  border-color: var(--dore);
+}
+
+.product-card--solde {
+  border-top-color: var(--dore);
+}
+
+.product-card__flags {
+  position: absolute;
+  top: -0.75rem;
+  right: 0.9rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.product-card__flag {
+  padding: 0.15rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  background: var(--noir);
+}
+
+.product-card__flag--solde {
+  background: var(--dore);
+}
+
+.product-card__flag--occasion {
+  background: var(--bois-brun);
+}
+
+.product-card__meta {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--bois-brun);
+}
+
+.product-card__categorie {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--dore);
+}
+
+.product-card__nom {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.product-card__nom span {
+  font-weight: 600;
+  color: var(--bois-brun);
+}
+
+.product-card__description {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #4c4a44;
+  flex-grow: 1;
+}
+
+.product-card__pied {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed var(--bois-clair);
+}
+
+.product-card__prix {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.product-card__prix-barre {
+  color: var(--bois-brun);
+  font-size: 0.85rem;
+}
+
+.product-card__prix-courant {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.product-card__prix-courant--solde {
+  color: var(--dore);
+}
+
+.disponibilite {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  color: var(--blanc);
+}
+
+.disponibilite--stock { background: var(--vert-stock); }
+.disponibilite--commande { background: var(--dore); }
+.disponibilite--rupture { background: var(--bois-brun); }
+
+/* --------------------------------------------------------------------------
+   Bannière officielle et boutique
+   -------------------------------------------------------------------------- */
+
+.bandeau-banniere img {
+  width: 100%;
+  border-block: 3px solid var(--noir);
+}
+
+.boutique {
+  background: linear-gradient(180deg, var(--blanc-casse), #efe7da);
+  padding-block: 4.5rem;
+}
+
+.boutique__grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-top: 2.2rem;
+}
+
+.service {
+  background: var(--blanc);
+  border: 1px solid rgb(199 176 153 / 0.55);
+  padding: 1.6rem;
+}
+
+.service__index {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dore);
+  letter-spacing: 0.2em;
+}
+
+.service h3 {
+  margin-top: 0.5rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.service p {
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
+  color: #4c4a44;
+}
+
+/* Bande adresse/horaires, écho du bas de la bannière physique */
+
+.venir {
+  position: relative;
+  background: var(--noir);
+  color: var(--blanc);
+  padding-block: 3.5rem;
+}
+
+.venir::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.venir__grille {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+
+.venir h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.venir address {
+  font-style: normal;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.venir__horaires {
+  border-left: 2px solid var(--dore);
+  padding-left: 1.4rem;
+  font-size: 0.95rem;
+}
+
+.venir__horaires strong {
+  display: block;
+  color: var(--laiton);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.venir__horaires p {
+  margin: 0.2rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   Pied de page
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--noir-profond);
+  color: var(--bois-clair);
+  padding-block: 2.2rem;
+  font-size: 0.85rem;
+}
+
+.site-footer .conteneur {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer__mention {
+  color: var(--bois-brun);
+}
+
+/* --------------------------------------------------------------------------
+   Apparitions au défilement et préférences de mouvement
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__badge,
+  .ruban__piste {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Écrans étroits
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .hero__grille {
+    grid-template-columns: 1fr;
+    padding-block: 3.5rem;
+    text-align: center;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__badge {
+    order: -1;
+    width: min(220px, 60vw);
+  }
+
+  .boutique__grille {
+    grid-template-columns: 1fr;
+  }
+
+  .venir__grille {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .venir__horaires {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .site-header__barre {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .site-nav {
+    margin-left: 0;
+    justify-content: center;
+  }
+}

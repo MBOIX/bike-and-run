@@ -22,7 +22,7 @@ python3 -m http.server 8000
 ## Tests
 
 ```bash
-node --test js/
+node --test
 ```
 
 ## Structure

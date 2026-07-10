@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BIKE&RUN — Vélo &amp; running à Vire Normandie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="conteneur site-header__barre">
+      <img class="site-header__logo" src="assets/images/logo.jpg" alt="Logo BIKE&amp;RUN Vire" width="44" height="44">
+      <p class="site-header__marque">BIKE<span>&amp;</span>RUN</p>
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="#catalogue">Catalogue</a>
+        <a href="#boutique">La boutique</a>
+        <a href="#venir">Nous trouver</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="conteneur hero__grille">
+        <div>
+          <p class="hero__lieu">Vire Normandie — Calvados</p>
+          <h1 class="hero__titre">Le vélo &amp; le running, <em>de la tête aux pieds</em></h1>
+          <p class="hero__univers">
+            Électrique <span>|</span> Enfant <span>|</span> Course <span>|</span> Ville <span>|</span> VTT<br>
+            Réparation <span>—</span> Running / Trail
+          </p>
+          <div class="hero__actions">
+            <a class="bouton bouton--primaire" href="#catalogue">Découvrir le catalogue</a>
+            <a class="bouton bouton--contour" href="#venir">Venir à la boutique</a>
+          </div>
+        </div>
+        <img class="hero__badge" src="assets/images/logo.jpg"
+          alt="Badge BIKE&amp;RUN : une roue de vélo entourant un vélo de course, deux chaussures de running et la mention Vire"
+          width="320" height="319">
+      </div>
+    </section>
+
+    <div class="ruban" aria-hidden="true">
+      <div class="ruban__piste">
+        VTT<span>◆</span>Course<span>◆</span>Ville<span>◆</span>Électrique<span>◆</span>Enfant<span>◆</span>Casques<span>◆</span>Running<span>◆</span>Trail<span>◆</span>Atelier<span>◆</span>
+        VTT<span>◆</span>Course<span>◆</span>Ville<span>◆</span>Électrique<span>◆</span>Enfant<span>◆</span>Casques<span>◆</span>Running<span>◆</span>Trail<span>◆</span>Atelier<span>◆</span>
+      </div>
+    </div>
+
+    <section class="catalogue conteneur reveal" id="catalogue">
+      <h2 class="section-titre">Le catalogue</h2>
+      <p class="section-intro">
+        Une sélection de vélos, casques et chaussures orientée gammes intermédiaires et hautes,
+        disponible en boutique. Les prix s'entendent TTC.
+      </p>
+      <div class="catalogue__filtres" id="catalogue-filtres"></div>
+      <p class="catalogue__statut" id="catalogue-statut">Chargement du catalogue…</p>
+      <div class="catalogue__grille" id="catalogue-grille"></div>
+      <noscript>
+        <p>Le catalogue interactif nécessite JavaScript. Retrouvez l'ensemble de nos produits en boutique,
+        4 Rue du Cotin à Vire.</p>
+      </noscript>
+    </section>
+
+    <div class="bandeau-banniere reveal">
+      <img src="assets/images/cover.jpg" loading="lazy" width="2222" height="580"
+        alt="Bannière de la boutique BIKE&amp;RUN : vélo électrique, enfant, course, ville, VTT, réparation, running et trail — 4 Rue du Cotin, 14500 Vire Normandie">
+    </div>
+
+    <section class="boutique reveal" id="boutique">
+      <div class="conteneur">
+        <h2 class="section-titre">La boutique</h2>
+        <p class="section-intro">
+          BIKE&amp;RUN vous accueille à Vire pour choisir votre prochain vélo — VTT, course, ville,
+          électrique ou enfant —, vous équiper de la tête aux pieds et entretenir votre matériel.
+          Coureurs et traileurs y trouvent aussi chaussures et équipement adaptés aux chemins du bocage.
+        </p>
+        <div class="boutique__grille">
+          <article class="service">
+            <span class="service__index">01</span>
+            <h3>Vente de vélos &amp; d'accessoires</h3>
+            <p>Vélos neufs toutes pratiques, casques, équipement et accessoires, sélectionnés et préparés en atelier.</p>
+          </article>
+          <article class="service">
+            <span class="service__index">02</span>
+            <h3>Atelier de réparation</h3>
+            <p>Entretien et réparation toutes marques, quel que soit l'endroit où votre vélo a été acheté.</p>
+          </article>
+          <article class="service">
+            <span class="service__index">03</span>
+            <h3>Conseil &amp; essai</h3>
+            <p>Un conseil personnalisé en boutique, pour repartir avec le matériel qui correspond vraiment à votre pratique.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="venir" id="venir">
+      <div class="conteneur venir__grille">
+        <div>
+          <h2>Venir à la boutique</h2>
+          <address>4 Rue du Cotin — 14500 Vire Normandie</address>
+        </div>
+        <div class="venir__horaires">
+          <strong>Horaires d'ouverture</strong>
+          <p>Du mardi au samedi : 10 h – 13 h &amp; 14 h – 19 h</p>
+          <p>Fermé dimanche et lundi</p>
+        </div>
+        <a class="bouton bouton--primaire" href="https://www.google.com/maps/search/?api=1&amp;query=4+Rue+du+Cotin+14500+Vire"
+          target="_blank" rel="noopener">Itinéraire</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur">
+      <p><strong>BIKE&amp;RUN</strong> — SIREN 934 870 668</p>
+      <p>4 Rue du Cotin, 14500 Vire, France</p>
+      <p class="site-footer__mention">Site vitrine — pas de vente en ligne, on se voit à la boutique.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
